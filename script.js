@@ -1,6 +1,7 @@
 document.getElementById('captureBtn').addEventListener('click', function() {
     const urlInput = document.getElementById('urlInput').value.trim();
     const resultDiv = document.getElementById('result');
+    const captureBtn = this; // Reference to the button
 
     // Clear previous results
     resultDiv.innerHTML = '';
@@ -12,11 +13,28 @@ document.getElementById('captureBtn').addEventListener('click', function() {
         return;
     }
 
-    // Show loading message
-    resultDiv.innerHTML = `<p style="color: green;">📸 Capturing screenshot of <strong>${urlInput}</strong>...</p>`;
+    // --- START LOADING STATE ---
+    function showLoading(isLoading) {
+        if (isLoading) {
+            captureBtn.disabled = true;
+            captureBtn.textContent = 'Capturing...';
+            resultDiv.innerHTML = `
+                <p style="color: green;">Processing <strong>${urlInput}</strong></p>
+                <div class="loader"></div>
+            `;
+        } else {
+            captureBtn.disabled = false;
+            captureBtn.textContent = 'Capture Screenshot';
+        }
+    }
+
+    showLoading(true); // Activate spinner & disable button
+    // --- END LOADING STATE ---
 
     // Simulate API call (MOCK — we replace with real backend later)
     setTimeout(() => {
+        showLoading(false); // Deactivate spinner & re-enable button
+
         const mockShortCode = Math.random().toString(36).substring(7);
         const mockShortLink = `https://snaprl.xyz/${mockShortCode}`;
         resultDiv.innerHTML = `
