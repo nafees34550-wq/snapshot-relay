@@ -75,5 +75,4 @@ fetch('http://localhost:3001/capture', {
     resultDiv.innerHTML = `<p style="color: red;">❌ Failed to capture: ${error.message}</p>`;
     console.error('Fetch error:', error);
 });
-}       
-}
+};       
