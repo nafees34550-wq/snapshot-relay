@@ -76,3 +76,4 @@ fetch('http://localhost:3001/capture', {
     console.error('Fetch error:', error);
 });
 }       
+}
